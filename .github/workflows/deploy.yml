@@ -51,6 +51,17 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: './dist'
+          
+      - name: Verify artifact
+        run: |
+          echo "=== 빌드 확인 ==="
+          if [ -f dist/index.html ]; then
+            echo "✅ index.html 존재"
+            head -20 dist/index.html
+          else
+            echo "❌ index.html 없음!"
+            exit 1
+          fi
 
   deploy:
     environment:
