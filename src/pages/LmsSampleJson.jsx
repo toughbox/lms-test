@@ -1,165 +1,29 @@
-import { useState } from 'react'
+import { useRef } from 'react'
+import JsonView from 'react18-json-view'
+import 'react18-json-view/src/style.css'
 import { lmsSampleData } from '../utils/lmsSampleData'
 import '../App.css'
 import './LmsSampleJson.css'
 
 function LmsSampleJson() {
-  const [expandedNodes, setExpandedNodes] = useState(new Set(['course', 'learning_index-0']))
-
-  const toggleNode = (nodeId) => {
-    const newExpanded = new Set(expandedNodes)
-    if (newExpanded.has(nodeId)) {
-      newExpanded.delete(nodeId)
-    } else {
-      newExpanded.add(nodeId)
-    }
-    setExpandedNodes(newExpanded)
-  }
-
-  // 모든 노드 경로를 수집하는 함수
-  const collectAllNodePaths = (obj, path = '', paths = new Set()) => {
-    if (obj === null || obj === undefined) {
-      return paths
-    }
-
-    if (Array.isArray(obj)) {
-      if (obj.length > 0) {
-        const nodeId = path
-        paths.add(nodeId)
-        obj.forEach((item, index) => {
-          if (typeof item === 'object' && item !== null) {
-            collectAllNodePaths(item, `${path}-${index}`, paths)
-          }
-        })
-      }
-    } else if (typeof obj === 'object') {
-      const keys = Object.keys(obj)
-      if (keys.length > 0) {
-        const nodeId = path || 'root'
-        paths.add(nodeId)
-        keys.forEach((key) => {
-          const value = obj[key]
-          const childPath = path ? `${path}.${key}` : key
-          if (typeof value === 'object' && value !== null) {
-            collectAllNodePaths(value, childPath, paths)
-          }
-        })
-      }
-    }
-    return paths
-  }
+  const jsonViewRef = useRef(null)
 
   // 전체 펼치기
   const expandAll = () => {
-    const allPaths = collectAllNodePaths(lmsSampleData)
-    setExpandedNodes(allPaths)
+    if (jsonViewRef.current) {
+      // react18-json-view의 모든 접힌 노드를 찾아서 펼치기
+      const collapsedButtons = jsonViewRef.current.querySelectorAll('button[aria-label*="expand"], button[aria-label*="Expand"]')
+      collapsedButtons.forEach(btn => btn.click())
+    }
   }
 
   // 전체 접기
   const collapseAll = () => {
-    setExpandedNodes(new Set())
-  }
-
-  const formatValue = (value) => {
-    if (value === null) return <span className="null-value">null</span>
-    if (value === undefined) return <span className="undefined-value">undefined</span>
-    if (typeof value === 'boolean') return <span className="boolean-value">{value.toString()}</span>
-    if (typeof value === 'number') return <span className="number-value">{value}</span>
-    if (typeof value === 'string') {
-      // 날짜 형식인지 확인
-      if (/^\d{4}-\d{2}-\d{2}T/.test(value)) {
-        return <span className="date-value">"{value}"</span>
-      }
-      return <span className="string-value">"{value}"</span>
+    if (jsonViewRef.current) {
+      // react18-json-view의 모든 펼쳐진 노드를 찾아서 접기
+      const expandedButtons = jsonViewRef.current.querySelectorAll('button[aria-label*="collapse"], button[aria-label*="Collapse"]')
+      expandedButtons.forEach(btn => btn.click())
     }
-    return JSON.stringify(value)
-  }
-
-  const renderObject = (obj, path = '', level = 0) => {
-    if (obj === null || obj === undefined) {
-      return <span className="null-value">null</span>
-    }
-
-    if (Array.isArray(obj)) {
-      if (obj.length === 0) {
-        return <span className="empty-array">[]</span>
-      }
-      const nodeId = path
-      const isExpanded = expandedNodes.has(nodeId)
-      
-      return (
-        <div className="tree-node">
-          <div 
-            className="tree-node-header"
-            onClick={() => toggleNode(nodeId)}
-            style={{ paddingLeft: `${level * 12}px` }}
-          >
-            <span className="tree-toggle">{isExpanded ? '▼' : '▶'}</span>
-          </div>
-          {isExpanded && (
-            <div className="tree-node-children">
-              {obj.map((item, index) => (
-                <div key={index} className="tree-item">
-                  {typeof item === 'object' && item !== null ? (
-                    renderObject(item, `${path}-${index}`, level + 1)
-                  ) : (
-                    <span className="tree-value">{formatValue(item)}</span>
-                  )}
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      )
-    }
-
-    if (typeof obj === 'object') {
-      const keys = Object.keys(obj)
-      if (keys.length === 0) {
-        return <span className="empty-object">{'{}'}</span>
-      }
-      
-      const nodeId = path || 'root'
-      const isExpanded = expandedNodes.has(nodeId)
-      
-      return (
-        <div className="tree-node">
-          <div 
-            className="tree-node-header"
-            onClick={() => toggleNode(nodeId)}
-            style={{ paddingLeft: `${level * 12}px` }}
-          >
-            <span className="tree-toggle">{isExpanded ? '▼' : '▶'}</span>
-          </div>
-          {isExpanded && (
-            <div className="tree-node-children">
-              {keys.map((key) => {
-                const value = obj[key]
-                const childPath = path ? `${path}.${key}` : key
-                
-                return (
-                  <div key={key} className="tree-item">
-                    <span 
-                      className="tree-key"
-                      onClick={() => typeof value === 'object' && value !== null && toggleNode(childPath)}
-                    >
-                      {key}:
-                    </span>
-                    {typeof value === 'object' && value !== null ? (
-                      renderObject(value, childPath, level + 1)
-                    ) : (
-                      <span className="tree-value">{formatValue(value)}</span>
-                    )}
-                  </div>
-                )
-              })}
-            </div>
-          )}
-        </div>
-      )
-    }
-
-    return <span className="tree-value">{formatValue(obj)}</span>
   }
 
   return (
@@ -212,8 +76,19 @@ function LmsSampleJson() {
                 </button>
               </div>
             </div>
-            <div className="tree-container">
-              {renderObject(lmsSampleData)}
+            <div className="tree-container" ref={jsonViewRef}>
+              <JsonView 
+                src={lmsSampleData}
+                theme="default"
+                enableClipboard={true}
+                displaySize="collapsed"
+                displayDataTypes={false}
+                style={{
+                  fontFamily: 'SF Mono, Monaco, Inconsolata, Roboto Mono, Courier New, monospace',
+                  fontSize: '0.875rem',
+                  lineHeight: '1.5',
+                }}
+              />
             </div>
           </div>
 
@@ -231,4 +106,3 @@ function LmsSampleJson() {
 }
 
 export default LmsSampleJson
-
