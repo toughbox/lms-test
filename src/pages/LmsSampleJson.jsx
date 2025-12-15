@@ -7,15 +7,18 @@ import './LmsSampleJson.css'
 
 function LmsSampleJson() {
   const [shouldExpand, setShouldExpand] = useState(() => collapseAllNested)
+  const [key, setKey] = useState(0) // 컴포넌트 재마운트를 위한 key
 
   // 전체 펼치기
   const expandAll = () => {
     setShouldExpand(() => allExpanded)
+    setKey(prev => prev + 1) // key 변경으로 컴포넌트 재마운트
   }
 
   // 전체 접기
   const collapseAll = () => {
     setShouldExpand(() => collapseAllNested)
+    setKey(prev => prev + 1) // key 변경으로 컴포넌트 재마운트
   }
 
   return (
@@ -70,6 +73,7 @@ function LmsSampleJson() {
             </div>
             <div className="tree-container">
               <JsonView 
+                key={key}
                 data={lmsSampleData}
                 shouldExpandNode={shouldExpand}
                 style={defaultStyles}
