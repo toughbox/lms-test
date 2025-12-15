@@ -51,3 +51,30 @@ src/
 - `src/App.jsx` 파일을 수정하여 개발을 시작하세요
 - 컴포넌트는 `src/components/` 폴더에 추가할 수 있습니다
 - 유틸리티 함수는 `src/utils/` 폴더에 추가할 수 있습니다
+
+## GitHub Pages 배포
+
+### 자동 배포 (GitHub Actions)
+
+1. GitHub 저장소 생성 및 코드 푸시
+2. 저장소 Settings > Pages에서:
+   - Source: "GitHub Actions" 선택
+   - 저장소 이름에 맞게 `vite.config.js`의 `base` 경로 수정
+     - 저장소 이름이 `lms-test`인 경우: `base: '/lms-test/'`
+     - 루트 도메인에 배포하는 경우: `base: '/'`
+3. `main` 브랜치에 푸시하면 자동으로 빌드 및 배포됩니다
+
+### 수동 배포
+
+```bash
+# 빌드
+npm run build
+
+# dist 폴더의 내용을 gh-pages 브랜치에 푸시
+# 또는 GitHub Pages 설정에서 dist 폴더를 루트로 지정
+```
+
+### 주의사항
+
+- `node_modules`가 커밋에 포함되어 있습니다 (GitHub Pages 호스팅용)
+- 저장소 크기가 커질 수 있으므로 필요시 `.gitignore`를 수정하세요
