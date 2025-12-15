@@ -16,6 +16,50 @@ function LmsSampleJson() {
     setExpandedNodes(newExpanded)
   }
 
+  // 모든 노드 경로를 수집하는 함수
+  const collectAllNodePaths = (obj, path = '', paths = new Set()) => {
+    if (obj === null || obj === undefined) {
+      return paths
+    }
+
+    if (Array.isArray(obj)) {
+      if (obj.length > 0) {
+        const nodeId = path
+        paths.add(nodeId)
+        obj.forEach((item, index) => {
+          if (typeof item === 'object' && item !== null) {
+            collectAllNodePaths(item, `${path}-${index}`, paths)
+          }
+        })
+      }
+    } else if (typeof obj === 'object') {
+      const keys = Object.keys(obj)
+      if (keys.length > 0) {
+        const nodeId = path || 'root'
+        paths.add(nodeId)
+        keys.forEach((key) => {
+          const value = obj[key]
+          const childPath = path ? `${path}.${key}` : key
+          if (typeof value === 'object' && value !== null) {
+            collectAllNodePaths(value, childPath, paths)
+          }
+        })
+      }
+    }
+    return paths
+  }
+
+  // 전체 펼치기
+  const expandAll = () => {
+    const allPaths = collectAllNodePaths(lmsSampleData)
+    setExpandedNodes(allPaths)
+  }
+
+  // 전체 접기
+  const collapseAll = () => {
+    setExpandedNodes(new Set())
+  }
+
   const formatValue = (value) => {
     if (value === null) return <span className="null-value">null</span>
     if (value === undefined) return <span className="undefined-value">undefined</span>
@@ -48,7 +92,7 @@ function LmsSampleJson() {
           <div 
             className="tree-node-header"
             onClick={() => toggleNode(nodeId)}
-            style={{ paddingLeft: `${level * 20}px` }}
+            style={{ paddingLeft: `${level * 12}px` }}
           >
             <span className="tree-toggle">{isExpanded ? '▼' : '▶'}</span>
             <span className="array-badge">Array</span>
@@ -86,7 +130,7 @@ function LmsSampleJson() {
           <div 
             className="tree-node-header"
             onClick={() => toggleNode(nodeId)}
-            style={{ paddingLeft: `${level * 20}px` }}
+            style={{ paddingLeft: `${level * 12}px` }}
           >
             <span className="tree-toggle">{isExpanded ? '▼' : '▶'}</span>
             <span className="object-badge">Object</span>
@@ -164,7 +208,17 @@ function LmsSampleJson() {
           </div>
 
           <div className="tree-view-section">
-            <h2>학습 인덱스 트리 구조</h2>
+            <div className="tree-view-header">
+              <h2>학습 인덱스 트리 구조</h2>
+              <div className="tree-controls">
+                <button onClick={expandAll} className="tree-control-btn expand-all">
+                  전체 펼치기
+                </button>
+                <button onClick={collapseAll} className="tree-control-btn collapse-all">
+                  전체 접기
+                </button>
+              </div>
+            </div>
             <div className="tree-container">
               {renderObject(lmsSampleData)}
             </div>
