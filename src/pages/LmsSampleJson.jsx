@@ -95,14 +95,11 @@ function LmsSampleJson() {
             style={{ paddingLeft: `${level * 12}px` }}
           >
             <span className="tree-toggle">{isExpanded ? '▼' : '▶'}</span>
-            <span className="array-badge">Array</span>
-            <span className="array-length">({obj.length})</span>
           </div>
           {isExpanded && (
             <div className="tree-node-children">
               {obj.map((item, index) => (
                 <div key={index} className="tree-item">
-                  <span className="array-index">[{index}]</span>
                   {typeof item === 'object' && item !== null ? (
                     renderObject(item, `${path}-${index}`, level + 1)
                   ) : (
@@ -133,16 +130,12 @@ function LmsSampleJson() {
             style={{ paddingLeft: `${level * 12}px` }}
           >
             <span className="tree-toggle">{isExpanded ? '▼' : '▶'}</span>
-            <span className="object-badge">Object</span>
-            {path && <span className="object-key">{path.split('-').pop()}</span>}
-            <span className="object-keys-count">({keys.length} keys)</span>
           </div>
           {isExpanded && (
             <div className="tree-node-children">
               {keys.map((key) => {
                 const value = obj[key]
                 const childPath = path ? `${path}.${key}` : key
-                const isChildExpanded = expandedNodes.has(childPath)
                 
                 return (
                   <div key={key} className="tree-item">

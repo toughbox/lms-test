@@ -126,14 +126,20 @@
   border-radius: 8px;
   padding: 1rem;
   overflow-x: auto;
+  overflow-y: visible;
   font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Courier New', monospace;
   font-size: 0.875rem;
   line-height: 1.5;
-  word-break: break-word;
+  width: 100%;
+}
+
+.tree-container > * {
+  min-width: max-content;
 }
 
 .tree-node {
   margin: 0.25rem 0;
+  min-width: max-content;
 }
 
 .tree-node-header {
@@ -145,6 +151,8 @@
   border-radius: 4px;
   transition: background-color 0.2s ease;
   user-select: none;
+  min-width: max-content;
+  white-space: nowrap;
 }
 
 .tree-node-header:hover {
@@ -166,6 +174,12 @@
   gap: 0.25rem;
   margin: 0.15rem 0;
   padding-left: 0.5rem;
+  min-width: max-content;
+}
+
+.tree-item > .tree-value {
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
 .tree-key {
@@ -175,6 +189,8 @@
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
   transition: background-color 0.2s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .tree-key:hover {
@@ -183,6 +199,11 @@
 
 .tree-value {
   color: #475569;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  min-width: 0;
+  max-width: none;
 }
 
 .array-badge,
