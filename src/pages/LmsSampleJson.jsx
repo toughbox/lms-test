@@ -1,29 +1,21 @@
-import { useRef } from 'react'
-import JsonView from 'react18-json-view'
-import 'react18-json-view/src/style.css'
+import { useState } from 'react'
+import { JsonView, allExpanded, collapseAllNested, defaultStyles } from 'react-json-view-lite'
+import 'react-json-view-lite/dist/index.css'
 import { lmsSampleData } from '../utils/lmsSampleData'
 import '../App.css'
 import './LmsSampleJson.css'
 
 function LmsSampleJson() {
-  const jsonViewRef = useRef(null)
+  const [shouldExpand, setShouldExpand] = useState(() => collapseAllNested)
 
   // 전체 펼치기
   const expandAll = () => {
-    if (jsonViewRef.current) {
-      // react18-json-view의 모든 접힌 노드를 찾아서 펼치기
-      const collapsedButtons = jsonViewRef.current.querySelectorAll('button[aria-label*="expand"], button[aria-label*="Expand"]')
-      collapsedButtons.forEach(btn => btn.click())
-    }
+    setShouldExpand(() => allExpanded)
   }
 
   // 전체 접기
   const collapseAll = () => {
-    if (jsonViewRef.current) {
-      // react18-json-view의 모든 펼쳐진 노드를 찾아서 접기
-      const expandedButtons = jsonViewRef.current.querySelectorAll('button[aria-label*="collapse"], button[aria-label*="Collapse"]')
-      expandedButtons.forEach(btn => btn.click())
-    }
+    setShouldExpand(() => collapseAllNested)
   }
 
   return (
@@ -76,18 +68,11 @@ function LmsSampleJson() {
                 </button>
               </div>
             </div>
-            <div className="tree-container" ref={jsonViewRef}>
+            <div className="tree-container">
               <JsonView 
-                src={lmsSampleData}
-                theme="default"
-                enableClipboard={true}
-                displaySize="collapsed"
-                displayDataTypes={false}
-                style={{
-                  fontFamily: 'SF Mono, Monaco, Inconsolata, Roboto Mono, Courier New, monospace',
-                  fontSize: '0.875rem',
-                  lineHeight: '1.5',
-                }}
+                data={lmsSampleData}
+                shouldExpandNode={shouldExpand}
+                style={defaultStyles}
               />
             </div>
           </div>

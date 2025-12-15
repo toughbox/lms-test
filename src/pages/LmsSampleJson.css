@@ -137,6 +137,52 @@
   min-width: max-content;
 }
 
+/* react-json-view-lite 커스텀 스타일 */
+.tree-container .json-view-container {
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Courier New', monospace;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.tree-container .json-view-label {
+  color: #0f172a;
+  font-weight: 600;
+}
+
+.tree-container .json-view-clickable-label {
+  cursor: pointer;
+  color: #4f46e5;
+}
+
+.tree-container .json-view-clickable-label:hover {
+  color: #6366f1;
+  text-decoration: underline;
+}
+
+/* react-json-view-lite 들여쓰기 강제 적용 */
+.tree-container ul {
+  padding-left: 1.5rem !important;
+  margin: 0.25rem 0 !important;
+  list-style: none;
+}
+
+.tree-container li {
+  margin: 0.15rem 0;
+}
+
+/* 중첩 레벨별 들여쓰기 */
+.tree-container ul ul {
+  padding-left: 1.5rem !important;
+}
+
+.tree-container ul ul ul {
+  padding-left: 1.5rem !important;
+}
+
+.tree-container ul ul ul ul {
+  padding-left: 1.5rem !important;
+}
+
 .tree-node {
   margin: 0.25rem 0;
   min-width: max-content;
