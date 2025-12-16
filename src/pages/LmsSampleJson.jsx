@@ -40,22 +40,6 @@ function LmsSampleJson() {
                 <span className="info-label">과정 코드:</span>
                 <span className="info-value">{lmsSampleData.course.code}</span>
               </div>
-              <div className="info-row">
-                <span className="info-label">요약:</span>
-                <span className="info-value">{lmsSampleData.course.summary}</span>
-              </div>
-              <div className="info-row">
-                <span className="info-label">예상 학습시간:</span>
-                <span className="info-value">{lmsSampleData.course.estimated_hours}시간</span>
-              </div>
-              <div className="info-row">
-                <span className="info-label">난이도:</span>
-                <span className="info-value badge">{lmsSampleData.course.difficulty}</span>
-              </div>
-              <div className="info-row">
-                <span className="info-label">언어:</span>
-                <span className="info-value">{lmsSampleData.course.language}</span>
-              </div>
             </div>
           </div>
 

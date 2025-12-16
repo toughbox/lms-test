@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Link, useLocation, Navigate } from 'react
 import './App.css'
 import ContentSearch from './pages/ContentSearch'
 import LmsSampleJson from './pages/LmsSampleJson'
+import ScopeTest from './pages/ScopeTest'
 
 function Navigation() {
   const location = useLocation()
@@ -21,6 +22,12 @@ function Navigation() {
         >
           LMS Sample JSON
         </Link>
+        <Link 
+          to="/scope-test" 
+          className={location.pathname === '/scope-test' ? 'nav-link active' : 'nav-link'}
+        >
+          Scope/Group Manager
+        </Link>
       </div>
     </nav>
   )
@@ -37,6 +44,7 @@ function App() {
         <Route path="/" element={<Navigate to="/content-search" replace />} />
         <Route path="/content-search" element={<ContentSearch />} />
         <Route path="/lms-sample" element={<LmsSampleJson />} />
+        <Route path="/scope-test" element={<ScopeTest />} />
       </Routes>
     </BrowserRouter>
   )

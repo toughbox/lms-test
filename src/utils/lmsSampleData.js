@@ -1,13 +1,8 @@
-// LMS 샘플 데이터
 export const lmsSampleData = {
   "course": {
     "id": 31,
     "code": "JSON_COURSE_17497",
-    "title": "요즘 일잘러가 쓰는 BEST 생성형 AI",
-    "summary": "labs 맟춤형 HLAC09001",
-    "estimated_hours": "2.00",
-    "difficulty": "BEGINNER",
-    "language": "ko"
+    "title": "요즘 일잘러가 쓰는 BEST 생성형 AI"
   },
   "learning_index": [
     {
@@ -16,12 +11,6 @@ export const lmsSampleData = {
       "index_id": 785,
       "index_type": "CHAPTER",
       "is_required": 1,
-      "pass_score": null,
-      "pass_progress_ratio": null,
-      "pass_required_count": null,
-      "assessment_score": null,
-      "assessment_progress_ratio": null,
-      "assessment_count": null,
       "index_order": 1,
       "learning_status": "PENDING",
       "parent_index_id": null,
@@ -29,12 +18,7 @@ export const lmsSampleData = {
       "learning_period_start_at": "2025-01-01T00:00:00Z",
       "learning_period_end_at": "2025-12-31T23:59:59Z",
       "learning_time": 0,
-      "progress_ratio_target_type": null,
-      "pass_process_timing_type": null,
       "review_period_end_at": "2026-01-31T23:59:59Z",
-      "is_assessment": 0,
-      "assessment_title": null,
-      "assessment_ratio": null,
       "learning_content": [],
       "learning_index": [
         {
@@ -43,12 +27,6 @@ export const lmsSampleData = {
           "index_id": 787,
           "index_type": "CHAPTER",
           "is_required": 1,
-          "pass_score": null,
-          "pass_progress_ratio": null,
-          "pass_required_count": null,
-          "assessment_score": null,
-          "assessment_progress_ratio": null,
-          "assessment_count": null,
           "index_order": 1,
           "learning_status": "PENDING",
           "parent_index_id": 785,
@@ -56,12 +34,7 @@ export const lmsSampleData = {
           "learning_period_start_at": "2025-01-01T00:00:00Z",
           "learning_period_end_at": "2025-12-31T23:59:59Z",
           "learning_time": 0,
-          "progress_ratio_target_type": null,
-          "pass_process_timing_type": null,
           "review_period_end_at": "2026-01-31T23:59:59Z",
-          "is_assessment": 0,
-          "assessment_title": null,
-          "assessment_ratio": null,
           "learning_content": [],
           "learning_index": [
             {
@@ -70,12 +43,6 @@ export const lmsSampleData = {
               "index_id": 788,
               "index_type": "LESSON",
               "is_required": 1,
-              "pass_score": null,
-              "pass_progress_ratio": null,
-              "pass_required_count": null,
-              "assessment_score": null,
-              "assessment_progress_ratio": null,
-              "assessment_count": null,
               "index_order": 1,
               "learning_status": "PENDING",
               "parent_index_id": 787,
@@ -83,12 +50,7 @@ export const lmsSampleData = {
               "learning_period_start_at": "2025-01-01T00:00:00Z",
               "learning_period_end_at": "2025-12-31T23:59:59Z",
               "learning_time": 0,
-              "progress_ratio_target_type": null,
-              "pass_process_timing_type": null,
               "review_period_end_at": "2026-01-31T23:59:59Z",
-              "is_assessment": null,
-              "assessment_title": null,
-              "assessment_ratio": null,
               "learning_content": [
                 {
                   "learner_id": 1,
@@ -102,9 +64,6 @@ export const lmsSampleData = {
                   "is_required": 1,
                   "content_url": "https://vod.cdn.hunet.co.kr/eLearning/Hunet/HLSC88968/01_03.mp4",
                   "content_title": "기존 AI와 생성형 AI의 결정적 차이점",
-                  "pass_score": 0,
-                  "pass_progress_ratio": 80,
-                  "pass_required_count": 0,
                   "learning_first_at": null,
                   "learning_last_at": null,
                   "learning_complete_at": null,
@@ -121,23 +80,14 @@ export const lmsSampleData = {
                   "access_condition": "PUBLIC",
                   "last_position": 0,
                   "max_position": 0,
-                  "answer_count": null,
-                  "correct_answer_count": null,
                   "is_answer_submitted": null,
                   "is_scored": null,
                   "obtained_score": null,
                   "view_count": null,
-                  "offline_session_no": null,
-                  "offline_schedule_no": null,
-                  "offline_attendance_count": null,
                   "total_duration_sec": null,
-                  "total_question_count": null,
                   "is_scoring_required": null,
-                  "pass_correct_answer_count": null,
                   "total_position": null,
-                  "content_width": 1920,
-                  "content_height": 1080,
-                  "offline_total_attendance_count": null
+                  "files": []
                 }
               ],
               "learning_index": []
@@ -147,5 +97,4 @@ export const lmsSampleData = {
       ]
     }
   ]
-};
-
+}
